@@ -18,9 +18,14 @@ const postAllTours = (req, res) => {
 // app.get("/all-tours", getAllTours);
 // app.get("/all-tours", postAllTours);
 
-
 // =====> second way to define routes
-app.route("/all-tours").get(getAllTours).post(postAllTours);
+
+// app.route("/all-tours").get(getAllTours).post(postAllTours);
+
+// =====> Third way to define routes
+const toursRouter = express.Router();
+app.use("/api/v1/all-tours", toursRouter);
+toursRouter.route("/").get(getAllTours).post(postAllTours);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
