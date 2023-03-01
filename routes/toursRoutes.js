@@ -1,13 +1,8 @@
 const express = require("express");
+const toursControler = require("../controlers/toursControler");
 
+const { getAllTours, postAllTours } = toursControler;
 
-
-const getAllTours = (req, res) => {
-    res.status(201).json({ message: "All Tours Avialable" });
-  };
-  const postAllTours = (req, res) => {
-    res.status(201).json({ message: "post Tours Avialable" });
-  };
 // =====> one way to define routes
 
 // app.get("/all-tours", getAllTours);
