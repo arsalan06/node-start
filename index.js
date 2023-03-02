@@ -9,5 +9,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1/all-tours", toursRouter);
+app.use("/api/v1/tours", toursRouter);
 
 module.exports = app;
