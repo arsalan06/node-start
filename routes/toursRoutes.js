@@ -1,4 +1,5 @@
 const express = require("express");
+
 const toursControler = require("../controlers/toursControler");
 
 const { getAllTours, postAllTours } = toursControler;
