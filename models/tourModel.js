@@ -16,9 +16,20 @@ const tourSchema = new mongoose.Schema({
     },
   });
   const Tour = mongoose.model("Tour", tourSchema);
+  //=====> for static data insert in model
+
+  
 //   const testTour = new Tour({
 //     name: "The Park",
 //   //   rating: 4.7,
 //     price: 544,
+//   });
+// testTour
+//   .save()
+//   .then((document) => {
+//     console.log(document);
+//   })
+//   .catch((err) => {
+//     console.log(err);
 //   });
 module.exports = Tour;
