@@ -1,0 +1,72 @@
+[
+    {
+        "name":"The Snow Adventurer",
+        "duration":4,
+        "maxGroupSize":10,
+        "difficulty":"difficulty",
+        "ratingsAverage":3.4,
+        "ratingsQuantity":13,
+        "price":6000,
+        "summary":"Excited adventure in the snow with snowboarding and skiing",
+        "description":" Angular, you're taking advantage of a platform that can scale from single-developer projects to enterprise-level applications. Angular is designed to make updating as straightforward as possible, so take advantage of the latest developments with minimal effort. Best of all, the Angular ecosystem consists of a diverse group of over 1.7 million developers, library authors, and content creators.",
+        "imageCover":"tour-3-cover.jpg",
+        "images":["tour-3-1.jpg","tour-3-2.jpg","tour-3-3.jpg"],
+        "startDates":["2022-01-05, 10:00","2022-01-12, 10:00", "2022-01-08, 10:00"]
+    },
+    {
+        "name":"Skardu",
+        "duration":5,
+        "maxGroupSize":11,
+        "difficulty":"difficulty",
+        "ratingsAverage":4.4,
+        "ratingsQuantity":13,
+        "price":5000,
+        "summary":"Excited adventure in the snow with snowboarding and skiing",
+        "description":" Angular, you're taking advantage of a platform that can scale from single-developer projects to enterprise-level applications. Angular is designed to make updating as straightforward as possible, so take advantage of the latest developments with minimal effort. Best of all, the Angular ecosystem consists of a diverse group of over 1.7 million developers, library authors, and content creators.",
+        "imageCover":"tour-3-cover.jpg",
+        "images":["tour-3-1.jpg","tour-3-2.jpg","tour-3-3.jpg"],
+        "startDates":["2022-01-05, 10:00","2022-01-12, 10:00", "2022-01-08, 10:00"]
+    },
+    {
+        "name":"Chitral Valley",
+        "duration":3,
+        "maxGroupSize":12,
+        "difficulty":"difficulty",
+        "ratingsAverage":5.4,
+        "ratingsQuantity":15,
+        "price":7000,
+        "summary":"Excited adventure in the snow with snowboarding and skiing",
+        "description":" Angular, you're taking advantage of a platform that can scale from single-developer projects to enterprise-level applications. Angular is designed to make updating as straightforward as possible, so take advantage of the latest developments with minimal effort. Best of all, the Angular ecosystem consists of a diverse group of over 1.7 million developers, library authors, and content creators.",
+        "imageCover":"tour-3-cover.jpg",
+        "images":["tour-3-1.jpg","tour-3-2.jpg","tour-3-3.jpg"],
+        "startDates":["2022-01-05, 10:00","2022-01-12, 10:00", "2022-01-08, 10:00"]
+    },
+    {
+        "name":"Neelum Valley",
+        "duration":8,
+        "maxGroupSize":16,
+        "difficulty":"difficulty",
+        "ratingsAverage":9.4,
+        "ratingsQuantity":17,
+        "price":9000,
+        "summary":"Excited adventure in the snow with snowboarding and skiing",
+        "description":" Angular, you're taking advantage of a platform that can scale from single-developer projects to enterprise-level applications. Angular is designed to make updating as straightforward as possible, so take advantage of the latest developments with minimal effort. Best of all, the Angular ecosystem consists of a diverse group of over 1.7 million developers, library authors, and content creators.",
+        "imageCover":"tour-3-cover.jpg",
+        "images":["tour-3-1.jpg","tour-3-2.jpg","tour-3-3.jpg"],
+        "startDates":["2022-01-05, 10:00","2022-01-12, 10:00", "2022-01-08, 10:00"]
+    },
+    {
+        "name":"Hunza Valley",
+        "duration":9,
+        "maxGroupSize":30,
+        "difficulty":"difficulty",
+        "ratingsAverage":9.4,
+        "ratingsQuantity":17,
+        "price":10000,
+        "summary":"Excited adventure in the snow with snowboarding and skiing",
+        "description":" Angular, you're taking advantage of a platform that can scale from single-developer projects to enterprise-level applications. Angular is designed to make updating as straightforward as possible, so take advantage of the latest developments with minimal effort. Best of all, the Angular ecosystem consists of a diverse group of over 1.7 million developers, library authors, and content creators.",
+        "imageCover":"tour-3-cover.jpg",
+        "images":["tour-3-1.jpg","tour-3-2.jpg","tour-3-3.jpg"],
+        "startDates":["2022-01-05, 10:00","2022-01-12, 10:00", "2022-01-08, 10:00"]
+    }
+]
