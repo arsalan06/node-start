@@ -17,6 +17,41 @@ exports.getAllTours = async (req, res) => {
     });
   }
 };
+exports.getfilterTours = async (req, res) => {
+  try {
+    // const { duration, difficulty } = req.query;
+
+    // how exclude params from req.query
+    const queryObj = { ...req.query };
+    const excludeFields = ["page", "sort", "limit", "fields"];
+    excludeFields.forEach((el) => delete queryObj[el]);
+    console.log(req.query, queryObj);
+    // one way to filter the record in mongodb
+
+    const tours = await Tour.find(queryObj);
+
+    // second way to filter the record in mongodb
+
+    // const tours = await Tour.find()
+    //   .where("duration")
+    //   .equals(duration)
+    //   .where("difficulty")
+    //   .equals(difficulty);
+
+    res.status(200).json({
+      status: "success",
+      result: tours.length,
+      data: {
+        tours,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
 exports.postAllTours = async (req, res) => {
   try {
     const newTour = await Tour.create(req.body);
@@ -57,8 +92,8 @@ exports.updateTour = async (req, res) => {
 };
 exports.deleteTour = async (req, res) => {
   try {
-    const tour = await Tour.findOneAndDelete(req.params.id,{
-      new:true,
+    const tour = await Tour.findOneAndDelete(req.params.id, {
+      new: true,
     });
     res.status(201).json({ status: "success", data: { tour } });
   } catch (err) {

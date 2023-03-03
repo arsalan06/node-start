@@ -2,7 +2,7 @@ const express = require("express");
 
 const toursControler = require("../controlers/toursControler");
 
-const { getAllTours, postAllTours, getTour, updateTour, deleteTour } = toursControler;
+const { getAllTours, postAllTours, getTour, updateTour, deleteTour, getfilterTours } = toursControler;
 
 // =====> one way to define routes
 
@@ -17,6 +17,7 @@ const { getAllTours, postAllTours, getTour, updateTour, deleteTour } = toursCont
 const toursRouter = express.Router();
 
 toursRouter.route("/").get(getAllTours).post(postAllTours);
+toursRouter.route("/filter").get(getfilterTours)
 toursRouter.route("/:id").get(getTour).patch(updateTour).delete(deleteTour);
 
 module.exports = toursRouter;
