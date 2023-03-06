@@ -19,16 +19,15 @@ exports.getAllTours = async (req, res) => {
 };
 exports.getfilterTours = async (req, res) => {
   try {
+    // console.log(req.query);
     // const { duration, difficulty } = req.query;
-
+    // 1) => filtering
     // how exclude params from req.query
     const queryObj = { ...req.query };
     const excludeFields = ["page", "sort", "limit", "fields"];
     excludeFields.forEach((el) => delete queryObj[el]);
-    console.log(req.query, queryObj);
     // one way to filter the record in mongodb
-
-    const tours = await Tour.find(queryObj);
+    // const query = Tour.find(queryObj);
 
     // second way to filter the record in mongodb
 
@@ -37,6 +36,12 @@ exports.getfilterTours = async (req, res) => {
     //   .equals(duration)
     //   .where("difficulty")
     //   .equals(difficulty);
+
+    // 2) Advance filtering
+    let queryStr = JSON.stringify(queryObj);
+    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
+    const query = Tour.find(JSON.parse(queryStr));
+    const tours = await query;
 
     res.status(200).json({
       status: "success",
