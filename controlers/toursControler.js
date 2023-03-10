@@ -54,6 +54,13 @@ exports.getSortedTours = async (req, res) => {
     });
   }
 };
+
+exports.aliasTopTours=(req, res, next)=>{
+  req.query.limit='3';
+  req.query.sort-'-ratingAverage, price';
+  req.query.fields='name, price, ratingAverage, summary difficulty';
+  next()
+}
 exports.getfilterTours = async (req, res) => {
   try {
     // console.log(req.query);
