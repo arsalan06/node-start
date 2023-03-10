@@ -49,6 +49,8 @@ const tourSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now(),
+    // select false is used to remove the field from get API record
+    select: false,
   },
   startDates: [Date],
 });

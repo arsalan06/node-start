@@ -20,7 +20,7 @@ exports.getAllTours = async (req, res) => {
 };
 exports.getSortedTours = async (req, res) => {
   try {
-    console.log(req.query);
+    // console.log(req.query);
     const queryObj = { ...req.query };
     const excludeFields = ["page", "sort", "limit", "fields"];
     excludeFields.forEach((el) => delete queryObj[el]);
@@ -29,15 +29,14 @@ exports.getSortedTours = async (req, res) => {
     let query = Tour.find(JSON.parse(queryStr));
     if (req.query.sort) {
       //sort record with single filter
-      
+
       // query=query.sort(req.query.sort)
       // sort record with multiple filters
-      const sortBy = req.query.sort.split(',').join(' ')
-      console.log(sortBy)
-      query=query.sort(sortBy)
-    }
-    else{
-      query=query.sort('-createdAt')
+      const sortBy = req.query.sort.split(",").join(" ");
+      // console.log(sortBy)
+      query = query.sort(sortBy);
+    } else {
+      query = query.sort("-createdAt");
     }
     const tours = await query;
 
@@ -89,6 +88,40 @@ exports.getfilterTours = async (req, res) => {
       },
     });
   } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+exports.getLimitedTours = async (req, res) => {
+  try {
+    // field limitation
+    // this proccess is called projecting
+    let tours;
+    // if (req.query.fields) {
+    //   const fields = req.query.fields.split(",").join(" ");
+    //   console.log(fields);
+    //   // console.log(query);
+    //   tours = await Tour.find().select(fields);
+    // }
+    // pagination
+    const page = req.query.page * 1 || 1;
+    const limit = req.query.limit * 1 || 100;
+    const skip = (page - 1) * limit;
+    //page=2&limit=10, 1-10, page 1, 11-20 page 2, 21-30 page 3 and so on
+    // query = query.skip(skip).limit(limit);
+     tours = await Tour.find().skip(skip).limit(limit);
+
+    res.status(200).json({
+      status: "success",
+      result: tours.length,
+      data: {
+        tours,
+      },
+    });
+  } catch (err) {
+    console.log(err)
     res.status(400).json({
       status: "fail",
       message: err,
