@@ -1,6 +1,69 @@
 const { query } = require("express");
 const Tour = require("../models/tourModel");
 
+class APIFeatures{
+  constructor(query, queryString){
+    this.query=query;
+    this.queryString=queryString;
+  }
+  filter(){
+    const queryObj = { ...this.queryString };
+    const excludeFields = ["page", "sort", "limit", "fields"];
+    excludeFields.forEach((el) => delete queryObj[el]);
+    let queryStr = JSON.stringify(queryObj);
+    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
+    this.query.find(JSON.parse(queryStr))
+  }
+}
+
+exports.aliasTopTours=(req, res, next)=>{
+  req.query.limit='3';
+  req.query.sort-'-ratingAverage, price';
+  req.query.fields='name, price, ratingAverage, summary difficulty';
+  next()
+}
+exports.getfilterTours = async (req, res) => {
+  try {
+    // console.log(req.query);
+    // const { duration, difficulty } = req.query;
+    // 1) => filtering
+    // how exclude params from req.query
+    // const queryObj = { ...req.query };
+    // const excludeFields = ["page", "sort", "limit", "fields"];
+    // excludeFields.forEach((el) => delete queryObj[el]);
+    // one way to filter the record in mongodb
+    // const query = Tour.find(queryObj);
+
+    // second way to filter the record in mongodb
+
+    // const tours = await Tour.find()
+    //   .where("duration")
+    //   .equals(duration)
+    //   .where("difficulty")
+    //   .equals(difficulty);
+
+    // 2) Advance filtering
+    // let queryStr = JSON.stringify(queryObj);
+    // queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
+    // const query = Tour.find(JSON.parse(queryStr));
+    const feature=new APIFeatures(Tour.find(), req.query).filter();
+    const tours = await feature.query;
+
+    res.status(200).json({
+      status: "success",
+      result: tours.length,
+      data: {
+        tours,
+      },
+    });
+  } catch (err) {
+    console.log(err)
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
 exports.getAllTours = async (req, res) => {
   try {
     const tours = await Tour.find();
@@ -38,53 +101,6 @@ exports.getSortedTours = async (req, res) => {
     } else {
       query = query.sort("-createdAt");
     }
-    const tours = await query;
-
-    res.status(200).json({
-      status: "success",
-      result: tours.length,
-      data: {
-        tours,
-      },
-    });
-  } catch (err) {
-    res.status(400).json({
-      status: "fail",
-      message: err,
-    });
-  }
-};
-
-exports.aliasTopTours=(req, res, next)=>{
-  req.query.limit='3';
-  req.query.sort-'-ratingAverage, price';
-  req.query.fields='name, price, ratingAverage, summary difficulty';
-  next()
-}
-exports.getfilterTours = async (req, res) => {
-  try {
-    // console.log(req.query);
-    // const { duration, difficulty } = req.query;
-    // 1) => filtering
-    // how exclude params from req.query
-    const queryObj = { ...req.query };
-    const excludeFields = ["page", "sort", "limit", "fields"];
-    excludeFields.forEach((el) => delete queryObj[el]);
-    // one way to filter the record in mongodb
-    // const query = Tour.find(queryObj);
-
-    // second way to filter the record in mongodb
-
-    // const tours = await Tour.find()
-    //   .where("duration")
-    //   .equals(duration)
-    //   .where("difficulty")
-    //   .equals(difficulty);
-
-    // 2) Advance filtering
-    let queryStr = JSON.stringify(queryObj);
-    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
-    const query = Tour.find(JSON.parse(queryStr));
     const tours = await query;
 
     res.status(200).json({
