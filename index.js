@@ -3,6 +3,7 @@ const express = require("express");
 var bodyParser = require('body-parser')
 const toursRouter = require("./routes/toursRoutes");
 const app = express();
+const AppClass =require("./utils/appError")
 app.use(bodyParser.json())
 app.get("/", (req, res) => {
   res.status(201).json({ message: "hello world" });
@@ -15,10 +16,11 @@ app.all("*", (req, res, next)=>{
   //   status:"fail",
   //   message:`can't find ${req.originalUrl} on this server`
   // })
-  const err =new Error(`can't find ${req.originalUrl} on this server`);
-  err.status="fail";
-  err.statusCode=404;
-  next(err)
+  // const err =new Error(`can't find ${req.originalUrl} on this server`);
+  // err.status="fail";
+  // err.statusCode=404;
+  // next(err)
+  next(new AppClass(`can't find ${req.originalUrl} on this server`))
 })
 app.use((err, req, res, next)=>{
   err.statusCode=err.statusCode || 500
