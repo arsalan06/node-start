@@ -10,5 +10,10 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/all-tours", toursRouter);
 app.use("/api/v1/tours", toursRouter);
-
+app.all("*", (req, res)=>{
+  res.status({
+    status:"fail",
+    message:`can't find ${req.originalUrl} on this server`
+  })
+})
 module.exports = app;
