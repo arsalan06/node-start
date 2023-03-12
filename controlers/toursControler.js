@@ -1,6 +1,6 @@
 const { query } = require("express");
 const Tour = require("../models/tourModel");
-
+const catchAsync =require("../utils/catchAsync")
 // class APIFeatures{
 //   constructor(query, queryString){
 //     this.query=query;
@@ -151,17 +151,12 @@ exports.getLimitedTours = async (req, res) => {
     });
   }
 };
-exports.postAllTours = async (req, res) => {
-  try {
-    const newTour = await Tour.create(req.body);
-    res.status(201).json({ status: "success", data: { tour: newTour } });
-  } catch (err) {
-    res.status(400).json({
-      status: "fail",
-      message: err,
-    });
-  }
-};
+
+
+exports.postAllTours =catchAsync( async (req, res) => {
+  const newTour = await Tour.create(req.body);
+  res.status(201).json({ status: "success", data: { tour: newTour } });
+});
 
 exports.getTour = async (req, res) => {
   try {
