@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 var bodyParser = require('body-parser')
 const toursRouter = require("./routes/toursRoutes");
+const usersRouter = require("./routes/userRoutes");
 const app = express();
 const AppClass =require("./utils/appError")
 app.use(bodyParser.json())
@@ -11,6 +12,7 @@ app.get("/", (req, res) => {
 
 // app.use("/api/v1/all-tours", toursRouter);
 app.use("/api/v1/tours", toursRouter);
+app.use("/api/v1/users", usersRouter);
 app.all("*", (req, res, next)=>{
   // res.status(404).json({
   //   status:"fail",
