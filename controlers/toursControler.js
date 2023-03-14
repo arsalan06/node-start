@@ -1,6 +1,6 @@
 const { query } = require("express");
 const Tour = require("../models/tourModel");
-const catchAsync =require("../utils/catchAsync")
+const catchAsync = require("../utils/catchAsync");
 // class APIFeatures{
 //   constructor(query, queryString){
 //     this.query=query;
@@ -18,12 +18,12 @@ const catchAsync =require("../utils/catchAsync")
 //   }
 // }
 
-exports.aliasTopTours=(req, res, next)=>{
-  req.query.limit='3';
-  req.query.sort-'-ratingAverage, price';
-  req.query.fields='name, price, ratingAverage, summary difficulty';
-  next()
-}
+exports.aliasTopTours = (req, res, next) => {
+  req.query.limit = "3";
+  req.query.sort - "-ratingAverage, price";
+  req.query.fields = "name, price, ratingAverage, summary difficulty";
+  next();
+};
 exports.getfilterTours = async (req, res) => {
   try {
     // console.log(req.query);
@@ -64,23 +64,14 @@ exports.getfilterTours = async (req, res) => {
     });
   }
 };
-exports.getAllTours = async (req, res) => {
-  try {
+exports.getAllTours = catchAsync( async (req, res, next) => {
     const tours = await Tour.find();
-    res.status(200).json({
+    res.json({
       status: "success",
-      result: tours.length,
-      data: {
-        tours,
-      },
-    });
-  } catch (err) {
-    res.status(400).json({
-      status: "fail",
-      message: err,
-    });
-  }
-};
+      // result: tours.length,
+      // data: tours,
+    }) 
+});
 exports.getSortedTours = async (req, res) => {
   try {
     // console.log(req.query);
@@ -134,7 +125,7 @@ exports.getLimitedTours = async (req, res) => {
     const skip = (page - 1) * limit;
     //page=2&limit=10, 1-10, page 1, 11-20 page 2, 21-30 page 3 and so on
     // query = query.skip(skip).limit(limit);
-     tours = await Tour.find().skip(skip).limit(limit);
+    tours = await Tour.find().skip(skip).limit(limit);
 
     res.status(200).json({
       status: "success",
@@ -144,7 +135,7 @@ exports.getLimitedTours = async (req, res) => {
       },
     });
   } catch (err) {
-    console.log(err)
+    console.log(err);
     res.status(400).json({
       status: "fail",
       message: err,
@@ -152,8 +143,7 @@ exports.getLimitedTours = async (req, res) => {
   }
 };
 
-
-exports.postAllTours =catchAsync( async (req, res) => {
+exports.postAllTours = catchAsync(async (req, res) => {
   const newTour = await Tour.create(req.body);
   res.status(201).json({ status: "success", data: { tour: newTour } });
 });

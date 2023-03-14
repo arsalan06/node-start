@@ -2,13 +2,13 @@ const express = require("express");
 
 const userControler = require("../controlers/userControler");
 const authControler = require("../controlers/authControler");
-const {signup, login}=authControler;
-const {getAllUsers}=userControler;
+const { signup, login, protect } = authControler;
+const { getAllUsers } = userControler;
 const userRouter = express.Router();
- 
-userRouter.post("/signup", signup)
-userRouter.post("/login", login)
-userRouter.route("/").get(getAllUsers)
+
+userRouter.post("/signup", signup);
+userRouter.post("/login", login);
+userRouter.route("/").get(protect, getAllUsers);
 // toursRouter.route("/filter").get(getfilterTours)
 // toursRouter.route("/sortedBy").get(getSortedTours)
 // toursRouter.route("/limitedField").get(getLimitedTours)

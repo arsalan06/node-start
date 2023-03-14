@@ -1,9 +1,20 @@
 const express = require("express");
 
 const toursControler = require("../controlers/toursControler");
+const authControler = require("../controlers/authControler");
 
-const { getAllTours, postAllTours, getTour, updateTour, deleteTour, getfilterTours, getSortedTours, getLimitedTours, aliasTopTours } = toursControler;
-
+const {
+  getAllTours,
+  postAllTours,
+  getTour,
+  updateTour,
+  deleteTour,
+  getfilterTours,
+  getSortedTours,
+  getLimitedTours,
+  aliasTopTours,
+} = toursControler;
+const { protect } = authControler;
 // =====> one way to define routes
 
 // app.get("/all-tours", getAllTours);
@@ -16,11 +27,11 @@ const { getAllTours, postAllTours, getTour, updateTour, deleteTour, getfilterTou
 // =====> Third way to define monting routes
 const toursRouter = express.Router();
 
-toursRouter.route("/").get(getAllTours).post(postAllTours);
-toursRouter.route("/filter").get(getfilterTours)
-toursRouter.route("/sortedBy").get(getSortedTours)
-toursRouter.route("/limitedField").get(getLimitedTours)
-toursRouter.route("/top-5-cheap").get(aliasTopTours, getfilterTours)
+toursRouter.route("/").get(protect, getAllTours).post(postAllTours);
+toursRouter.route("/filter").get(getfilterTours);
+toursRouter.route("/sortedBy").get(getSortedTours);
+toursRouter.route("/limitedField").get(getLimitedTours);
+toursRouter.route("/top-5-cheap").get(aliasTopTours, getfilterTours);
 toursRouter.route("/:id").get(getTour).patch(updateTour).delete(deleteTour);
 
 module.exports = toursRouter;

@@ -6,11 +6,13 @@ const usersRouter = require("./routes/userRoutes");
 const app = express();
 const AppClass =require("./utils/appError")
 app.use(bodyParser.json())
-app.get("/", (req, res) => {
-  res.status(201).json({ message: "hello world" });
-});
 
-// app.use("/api/v1/all-tours", toursRouter);
+
+// app.use((req,res,next)=>{
+//   req.reqeustTime=new Date().toISOString();
+//   // console.log(req)
+//   next()
+// });
 app.use("/api/v1/tours", toursRouter);
 app.use("/api/v1/users", usersRouter);
 app.all("*", (req, res, next)=>{
